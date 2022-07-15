@@ -1,13 +1,20 @@
-import React from "react";
+import React,{useState} from "react";
 import { TextField, Button, FormControl,Link } from "@mui/material";
 
 const Login = () => {
 
+  const [loginUser,setLoginUser]=useState({
+    username:"",
+    password:""
+})
+const loginData = (e, key) => {
+  setLoginUser({ ...loginUser, [key]: e.target.value });
+};
   
   return (
     <>
-      <h1 className="text-5xl ml-[44%] mt-[3%]">Polling App</h1>
-      <div className="w-96 mt-[3%] ml-[40%] border-2 px-12 py-5 ">
+      <h1 className="text-5xl ml-[46%] mt-[3%]">Polling App</h1>
+      <div className="w-96 mt-[3%] ml-[40%] border-2 rounded-xl px-12 py-5">
         <h1 className="text-3xl mb-12 ml-20">LOG IN</h1>
         <FormControl>
           <TextField
@@ -15,6 +22,7 @@ const Login = () => {
             id="outlined-basic"
             label="Username"
             variant="outlined"
+            onChange={(e) => loginData(e, "username")}
             required
           />
 
@@ -23,6 +31,7 @@ const Login = () => {
             label="password"
             variant="outlined"
             sx={{ mt: "20px", width: "260px" }}
+            onChange={(e) => loginData(e, "password")}
             required
           />
 
