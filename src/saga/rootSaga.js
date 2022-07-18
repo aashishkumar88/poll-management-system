@@ -4,11 +4,12 @@ import {logIn} from "./logIn";
 import {all,fork,takeLatest} from "redux-saga/effects";
 
 function* signUpBind(){
-  yield takeLatest(action.LOG_IN_LOAD,signUp);
+  console.log("signup in saaga")
+  yield takeLatest(action.SIGN_UP_REQUEST,signUp);
 }
 
 function* logInBind(){
-  yield takeLatest(action.LOG_IN_LOAD,logIn);
+  yield takeLatest(action.LOG_IN_REQUEST,logIn);
 }
 
 export default function* rootSaga(){

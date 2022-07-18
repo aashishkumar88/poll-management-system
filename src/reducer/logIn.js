@@ -8,6 +8,7 @@ const initialState = {
 };
 
 const logIn = (state = initialState, action) => {
+  console.log("action passing",action)
   switch (action.type) {
     case actions.LOG_IN_REQUEST:
       return {
@@ -21,7 +22,7 @@ const logIn = (state = initialState, action) => {
         isLoading: false,
         isSuccess: true,
         isError: false,
-        data: actions.payload.response,
+        data: action.payload.response,
       }
       case actions.LOG_IN_ERROR:
         return {
