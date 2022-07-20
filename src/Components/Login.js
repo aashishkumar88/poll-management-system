@@ -1,22 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Button, FormControl, Link } from "@mui/material";
-import { useDispatch,useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logInRequest } from "../action/index";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const loginNavigate=useNavigate();
+  const loginNavigate = useNavigate();
   
   const loginSelector = useSelector((state) => state && state.logInState);
-  React.useEffect(() => {
+  useEffect(() => {
     if (loginSelector.isSuccess) {
-      if (loginSelector.data.error === 0) {
+      if (loginSelector.data.error === 0)
+       {
         loginNavigate("/dashboard");
       }
     }
   }, [loginSelector]);
-
 
   const [loginUser, setLoginUser] = useState({
     username: "",
@@ -27,13 +27,13 @@ const Login = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("submit data")
+    console.log("submit data");
     if (loginUser.username && loginUser.password) {
-      console.log("data dispatching")
+      console.log("data dispatching");
       dispatch(logInRequest({ ...loginUser }));
     }
   };
-console.log(loginUser)
+  console.log(loginUser);
   return (
     <>
       <h1 className="text-5xl ml-[46%] mt-[3%]">Polling App</h1>
