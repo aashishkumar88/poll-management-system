@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter,Routes,Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import Signup from "./Components/Signup";
 import store from "./store";
@@ -7,15 +7,15 @@ import Dashboard from "./Components/dashboard";
 import Private from "./Components/Private";
 import Login from "./Components/Login";
 import ViewPoll from "./Components/viewPoll";
+import AdminDashboard from "./Components/adminDashboard";
 const App = () => {
- 
   return (
     <>
       <Provider store={store}>
         <BrowserRouter>
           <Routes>
-            <Route path="/viewpolls" element={<ViewPoll />} />
-
+            <Route path="/viewPolls" element={<ViewPoll />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Signup />} />
             <Route

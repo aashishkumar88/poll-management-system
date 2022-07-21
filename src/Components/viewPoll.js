@@ -1,13 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { viewPollRequest } from "../action";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-
 
 const ViewPoll = () => {
   const dispatch = useDispatch();
@@ -21,26 +14,27 @@ const ViewPoll = () => {
   useEffect(() => {
     dispatch(viewPollRequest());
   }, []);
-  
+
   return (
     <>
-      <button>VIEW POLLS</button>
-
-      <div>
-        {viewPollSelector &&
-          viewPollSelector?.data.map((val, index) => {
-            return (
-              <div key={index}>
-                <div>{val.title}</div>
-                <span>
+      <div className="max-w-sm rounded overflow-hidden shadow-lg ">
+        <div className="px-6 py-4">
+          {viewPollSelector &&
+            viewPollSelector?.data.map((val, index) => {
+              return (
+                <div key={index}>
+                  <div className="font-bold text-xl mb-2">{val.title}</div>
                   {val.options.map((val) => {
-                    return <>{val.option}</>;
+                    return (
+                      <>
+                        <p className="text-gray-700 text-base">{val.option}</p>
+                      </>
+                    );
                   })}
-                </span>
-              </div>
-            );
-          })}
-       
+                </div>
+              );
+            })}
+        </div>
       </div>
     </>
   );

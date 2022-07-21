@@ -20,7 +20,7 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import Button from "@mui/material/Button";
 import { Navigate } from "react-router-dom";
-import ViewPoll from "./viewPoll"
+import ViewPoll from "./viewPoll";
 
 const drawerWidth = 240;
 
@@ -69,7 +69,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-export default function PersistentDrawerLeft() {
+export default function AdminDashboard() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -95,8 +95,8 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" >
-            Polling App  (GUEST)
+          <Typography variant="h6" noWrap component="div">
+            Polling App  (ADMIN)
           </Typography>
           <Button
             color="inherit"
@@ -105,7 +105,6 @@ export default function PersistentDrawerLeft() {
           >
             Logout
           </Button>
-          
         </Toolbar>
       </AppBar>
       <Drawer
@@ -147,12 +146,9 @@ export default function PersistentDrawerLeft() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <Typography paragraph>
-        
-        </Typography>
-       <ViewPoll/>
+        <Typography paragraph></Typography>
+       
       </Main>
     </Box>
   );
 }
-

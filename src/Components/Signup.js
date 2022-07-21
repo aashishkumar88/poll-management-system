@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { signUpRequest } from "../action/index";
-import { useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 
 import {
   TextField,
@@ -14,9 +13,9 @@ import {
   Link,
 } from "@mui/material";
 
-const Signup= () => {
-  const dispatch=useDispatch();
-  const signupNavigate=useNavigate(); 
+const Signup = () => {
+  const dispatch = useDispatch();
+  const signupNavigate = useNavigate();
   const signupSelector = useSelector((state) => state && state.signUpState);
   const [role, setRole] = useState("");
   const [signupUser, setSignupUser] = useState({
@@ -24,23 +23,23 @@ const Signup= () => {
     password: "",
     role: "",
   });
-   
-  React.useEffect(()=>{
-  if(signupSelector.isSuccess){
-    if(signupSelector.data.error===0){
-      signupNavigate('/')
-    }
-  }
-  },[signupSelector]);
 
-  const handleSignupUser=(value,type)=>{
-    setSignupUser((prev)=>{
-      return{
-        ...prev,
-        [type]:value
+  React.useEffect(() => {
+    if (signupSelector.isSuccess) {
+      if (signupSelector.data.error === 0) {
+        signupNavigate("/");
       }
-    })
-}
+    }
+  }, [signupSelector]);
+
+  const handleSignupUser = (value, type) => {
+    setSignupUser((prev) => {
+      return {
+        ...prev,
+        [type]: value,
+      };
+    });
+  };
 
   const signupData = (e, key) => {
     setSignupUser({ ...signupUser, [key]: e.target.value });
@@ -49,16 +48,16 @@ const Signup= () => {
   const handleChange = (event) => {
     setRole(event.target.value);
   };
- const handleSignupSubmit = (e) => {
-   console.log("signup Submit");
-   e.preventDefault();
-   if (signupUser.username && signupUser.password && signupUser.role) {
-     console.log("sign up action dispatched");
-     dispatch(signUpRequest({ ...signupUser }));
-   }
- };
+  const handleSignupSubmit = (e) => {
+    console.log("signup Submit");
+    e.preventDefault();
+    if (signupUser.username && signupUser.password && signupUser.role) {
+      console.log("sign up action dispatched");
+      dispatch(signUpRequest({ ...signupUser }));
+    }
+  };
 
- console.log(signupUser)
+  // console.log(signupUser);
   return (
     <>
       <h1 className="text-5xl ml-[46%] mt-[3%] ">Polling App</h1>
@@ -92,14 +91,19 @@ const Signup= () => {
                 value={signupUser.role}
                 label="Role"
                 fullWidth
-                onChange={(e)=>handleSignupUser(e.target.value,'role')}
+                onChange={(e) => handleSignupUser(e.target.value, "role")}
                 // onChange={(e) => signupData(e, "password")}
               >
                 <MenuItem value={"Guest"}>Guest</MenuItem>
                 <MenuItem value={"Admin"}>Admin</MenuItem>
               </Select>
             </FormControl>
-            <Button variant="contained" fullWidth sx={{ mt: "30px" }} type="submit">
+            <Button
+              variant="contained"
+              fullWidth
+              sx={{ mt: "30px" }}
+              type="submit"
+            >
               Sign Up
             </Button>
           </form>

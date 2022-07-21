@@ -7,14 +7,20 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const dispatch = useDispatch();
   const loginNavigate = useNavigate();
-  
+
   const loginSelector = useSelector((state) => state && state.logInState);
+
+const userType= localStorage.getItem("role")
+console.log(userType,"ghjfdkggggg")
   useEffect(() => {
     if (loginSelector.isSuccess) {
-      if (loginSelector.data.error === 0)
-       {
-        loginNavigate("/dashboard");
-      }
+      if (loginSelector.data.error === 0 && userType === "Admin") {
+        
+          loginNavigate("/admin");
+        } else if(loginSelector.data.error === 0 ){
+          loginNavigate("/dashboard");
+        }
+      
     }
   }, [loginSelector]);
 
