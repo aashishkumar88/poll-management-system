@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { signUpRequest } from "../action/index";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
+import Stack from "@mui/material/Stack";
+import MuiAlert from "@mui/material/Alert";
 
 import {
   TextField,
@@ -13,15 +16,33 @@ import {
   Link,
 } from "@mui/material";
 
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 const Signup = () => {
+   const [open, setOpen] = React.useState(false);
+
+   const handleClick = () => {
+     setOpen(true);
+   };
+
+   const handleClose = (event, reason) => {
+     if (reason === "clickaway") {
+       return;
+     }
+
+     setOpen(false);
+   };
   const dispatch = useDispatch();
   const signupNavigate = useNavigate();
   const signupSelector = useSelector((state) => state && state.signUpState);
+  // console.log(signupSelector.isLoading,signupSelector.message ,"error -------------");
   const [role, setRole] = useState("");
   const [signupUser, setSignupUser] = useState({
     username: "",
     password: "",
-    role: "",
+    role: "Guest",
   });
 
   React.useEffect(() => {
@@ -36,6 +57,7 @@ const Signup = () => {
     setSignupUser((prev) => {
       return {
         ...prev,
+
         [type]: value,
       };
     });
@@ -73,7 +95,6 @@ const Signup = () => {
               variant="outlined"
               onChange={(e) => signupData(e, "username")}
             />
-
             <TextField
               fullWidth
               id=""
@@ -90,6 +111,7 @@ const Signup = () => {
                 id="demo-simple-select"
                 value={signupUser.role}
                 label="Role"
+                defaultValue={MenuItem.Guest}
                 fullWidth
                 onChange={(e) => handleSignupUser(e.target.value, "role")}
                 // onChange={(e) => signupData(e, "password")}
@@ -98,14 +120,28 @@ const Signup = () => {
                 <MenuItem value={"Admin"}>Admin</MenuItem>
               </Select>
             </FormControl>
+
             <Button
               variant="contained"
               fullWidth
               sx={{ mt: "30px" }}
               type="submit"
             >
-              Sign Up
+              {signupSelector.isLoading ? (
+                <>
+                  <CircularProgress color="inherit" />
+                </>
+              ) : (
+                <>Sign Up</>
+              )}
             </Button>
+            {signupSelector.isError ? (
+              <>
+                <Stack spacing={2} sx={{ width: "100%", marginTop: "10px" }}>
+                  <Alert severity="error">{signupSelector.message}</Alert>
+                </Stack>
+              </>
+            ) : null}
           </form>
           <Link href="/" underline="hover" sx={{ mt: "15px" }}>
             {"Already a User? LOGIN"}
